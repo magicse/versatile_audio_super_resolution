@@ -185,6 +185,47 @@ def normalize_wav(waveform):
     waveform = waveform / (np.max(np.abs(waveform)) + 1e-8)
     return waveform * 0.5
 
+def split_audio(waveform, sample_rate, chunk_sec=5.12, overlap_sec=0.5, target_sr=48000):
+    chunk_size = int(chunk_sec * sample_rate)
+    overlap_size = int(overlap_sec * sample_rate)
+    step_size = chunk_size - overlap_size
+
+    total_length = len(waveform)
+    chunks = []
+
+    for start in range(0, total_length, step_size):
+        end = start + chunk_size
+        chunk = waveform[start:end]
+        original_end = min(end, total_length) 
+
+        # Zero-pad if too short
+        if len(chunk) < chunk_size:
+            chunk = np.pad(chunk, (0, chunk_size - len(chunk)), mode='constant')
+
+        chunk_tensor = torch.tensor(chunk, dtype=torch.float32)
+
+        duration = chunk_tensor.size(-1) / sample_rate
+
+        target_frame = int(chunk_sec * 100)
+        pad_duration = duration
+
+        #if sample_rate != target_sr:
+        #    chunk_tensor = torchaudio.functional.resample(chunk_tensor.unsqueeze(0), sample_rate, target_sr).squeeze(0)
+
+        chunk_tensor = normalize_wav(chunk_tensor.numpy())
+        chunk_tensor = torch.tensor(chunk_tensor, dtype=torch.float32)
+
+        chunks.append({
+            "waveform":  chunk_tensor,  # [1, T]
+            "target_frame": target_frame,
+            "pad_duration": pad_duration,
+            "original_start": start,
+            "original_end": original_end
+        })
+
+    return chunks
+
+
 def read_wav_file(filename):
     waveform, sr = torchaudio.load(filename)
     duration = waveform.size(-1) / sr
