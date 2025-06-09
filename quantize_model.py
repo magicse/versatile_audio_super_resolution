@@ -48,8 +48,8 @@ if torch.cuda.is_available():
     optimized_model = optimized_model.to(device)
     torch.cuda.empty_cache()
 
-if hasattr(optimized_model, 'model_ema'):
-    del optimized_model.model_ema
+#if hasattr(optimized_model, 'model_ema'):
+#    del optimized_model.model_ema
 
 # Save the optimized model
 torch.save({
