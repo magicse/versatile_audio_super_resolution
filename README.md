@@ -8,6 +8,14 @@ AudioSR is a powerful tool designed to enhance the fidelity of your audio files,
 
 ## Key Features
 - **Saves a clean**: quantized model ready for deployment (reduce size from 5.75Gb to 2.76Gb) file quantize_model.py
+- **Force model path**: Force path model to load.
+  
+```
+from audiosr.pipeline import build_model
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+checkpoint_path = os.path.join(r"I:\AudioSr_model\basic.pth")  
+audiosr = build_model(ckpt_path=checkpoint_path, model_name='basic', device=device)
+```
 
 ## Acknowledgments
 Based on the work of https://github.com/haoheliu/versatile_audio_super_resolution/
