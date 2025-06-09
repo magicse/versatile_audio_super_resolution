@@ -13,7 +13,7 @@ AudioSR is a powerful tool designed to enhance the fidelity of your audio files,
 ```
 from audiosr.pipeline import build_model
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-checkpoint_path = os.path.join(r"I:\AudioSr_model\basic.pth")  
+checkpoint_path = os.path.join(r"path_to_model\basic.pth")  
 audiosr = build_model(ckpt_path=checkpoint_path, model_name='basic', device=device)
 ```
 
