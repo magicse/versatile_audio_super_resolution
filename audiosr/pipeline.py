@@ -114,7 +114,7 @@ def round_up_duration(duration):
 def build_model(ckpt_path=None, config=None, device=None, model_name="basic"):
     if device is None or device == "auto":
         if torch.cuda.is_available():
-            device = torch.device("cuda:0")
+            device = torch.device("cuda")
         elif torch.backends.mps.is_available():
             device = torch.device("mps")
         else:
@@ -123,7 +123,8 @@ def build_model(ckpt_path=None, config=None, device=None, model_name="basic"):
     print("Loading AudioSR: %s" % model_name)
     print("Loading model on %s" % device)
 
-    ckpt_path = download_checkpoint(model_name)
+    if ckpt_path is None:
+        ckpt_path = download_checkpoint(model_name)     
 
     if config is not None:
         assert type(config) is str
@@ -140,7 +141,7 @@ def build_model(ckpt_path=None, config=None, device=None, model_name="basic"):
 
     resume_from_checkpoint = ckpt_path
 
-    checkpoint = torch.load(resume_from_checkpoint, map_location='cpu')
+    checkpoint = torch.load(resume_from_checkpoint, map_location=device)
 
     latent_diffusion.load_state_dict(checkpoint["state_dict"], strict=False)
 
