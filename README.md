@@ -7,7 +7,7 @@
 AudioSR is a powerful tool designed to enhance the fidelity of your audio files, regardless of their type (e.g., music, speech, ambient sounds) or sampling rates. It leverages cutting-edge super-resolution techniques to upscale audio signals, resulting in superior quality output.
 
 ## Key Features
-- **Saves a clean**: quantized model ready for deployment (reduce size from 5.75Gb to 2.76Gb) file quantize_model.py
+- **Saves a clean**: quantized model ready for deployment (reduce size from 5.75Gb to 3.73Gb) file quantize_model.py
 - **Force model path**: Force path model to load.
   
 ```
