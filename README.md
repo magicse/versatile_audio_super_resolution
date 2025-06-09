@@ -7,6 +7,7 @@
 AudioSR is a powerful tool designed to enhance the fidelity of your audio files, regardless of their type (e.g., music, speech, ambient sounds) or sampling rates. It leverages cutting-edge super-resolution techniques to upscale audio signals, resulting in superior quality output.
 
 ## Key Features
+- **Saves a clean**, quantized model ready for deployment (reduce size from 5.75 to 3.73)
 
 ## Acknowledgments
 Based on the work of https://github.com/haoheliu/versatile_audio_super_resolution/
